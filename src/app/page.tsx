@@ -16,7 +16,7 @@ export default function Home() {
         <h3>Popular Blogs</h3>
         <div className={styles.content}>
           <Card sx={{ maxWidth: 600 }}>
-            <CardActionArea>
+            <CardActionArea disableRipple>
               <CardMedia
                 component="img"
                 height="200"
