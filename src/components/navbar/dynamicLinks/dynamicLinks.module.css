@@ -1,0 +1,40 @@
+.links{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.login{
+    background-color: var(--btn);
+    color: var(--btn-text);
+    padding: 10px;
+    min-width: 150px;
+    cursor: pointer;    
+    font-weight: 500;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.user{
+    background-color: var(--btn);
+    color: var(--btn-text);
+    padding: 10px;
+    min-width: 100px;
+    cursor: pointer;    
+    font-weight: 500;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.icon_link{
+    background-color: var(--btn);
+    color: var(--btn-text);
+    padding: 10px;
+    cursor: pointer;    
+    font-weight: 500;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+}

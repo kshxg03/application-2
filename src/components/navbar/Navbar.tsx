@@ -1,12 +1,19 @@
 import Link from "next/link";
+import Links from "./links/Links";
+import styles from "./navbar.module.css";
+import DynamicLinks from "./dynamicLinks/DynamicLinks";
 
 const Navbar = () => {
   return (
-    <div>
-      <div>Logo</div>
+    <div className={styles.container}>
+      <div className={styles.logo}>
+        <Link href="/">Bislerium</Link>
+      </div>
       <div>
-        <Link href="/">Home</Link>
-        <Link href="/blogs">About</Link>
+        <Links />
+      </div>
+      <div>
+        <DynamicLinks />
       </div>
     </div>
   );

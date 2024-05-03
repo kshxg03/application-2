@@ -1,0 +1,25 @@
+.container{
+    min-width: 80px;
+    padding: 0px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.container::after {
+    content: '';
+    display: block;
+    width: 0;
+    margin-top: 5px;
+    height: 2px;
+    background: #000;
+}
+
+.container:hover::after {
+    width: 100%;
+    transition: width .3s;
+}
+
+.active{
+    border-bottom: 2px solid var(--text);
+    font-weight: 600;
+}
