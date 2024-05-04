@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import {
   Container,
   Typography,
@@ -8,8 +10,22 @@ import {
   Paper,
 } from "@mui/material";
 import Link from "next/link";
+import { RegisterCommon } from "@/app/common/helper/register.request";
 
 const RegisterPage = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [userNameEmptyError, setUserNameEmptyError] = useState("");
+  const [passwordEmptyError, setPasswordEmptyError] = useState("");
+
+  async function HandleSignup() {
+    const response = await RegisterCommon({ name, email, userName, password });
+    console.log("This is Response: ", response.Data);
+  }
+
   return (
     <Container
       component="main"
@@ -73,6 +89,7 @@ const RegisterPage = () => {
             type="submit"
             fullWidth
             variant="contained"
+            onClick={HandleSignup}
             sx={{
               mt: 3,
               backgroundColor: "black",

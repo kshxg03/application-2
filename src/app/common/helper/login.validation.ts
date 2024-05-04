@@ -1,3 +1,5 @@
+import { isEmptyOrWhitespaceOrNullOrUndefined } from "./string.methods";
+
 export interface ReturnProps {
     forUserName: string | null;
     forPassword: string | null;
@@ -14,7 +16,7 @@ export interface ReturnProps {
       isEmpty: false, //default false
     };
   
-    if (!userName) {
+    if (isEmptyOrWhitespaceOrNullOrUndefined(userName)) {
       returnObject.forUserName = "User name field cannot be empty";
       returnObject.isEmpty = true;
     }

@@ -28,7 +28,7 @@ const DynamicLinks = () => {
         )
       ) : (
         <Link href="/login">
-          <button className={styles.login}>Get Started</button>
+          <button className={styles.login}>Sign in</button>
         </Link>
       )}
     </div>

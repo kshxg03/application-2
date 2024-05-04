@@ -1,6 +1,6 @@
 import { Container } from "@mui/material";
 
-const BlogsPage = () => {
+const ForgotPasswordPage = () => {
   return (
     <Container
       sx={{
@@ -11,9 +11,9 @@ const BlogsPage = () => {
         alignItems: "center",
       }}
     >
-      BlogsPage
+      ForgotPasswordPage
     </Container>
   );
 };
 
-export default BlogsPage;
+export default ForgotPasswordPage;

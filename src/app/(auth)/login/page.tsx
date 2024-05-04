@@ -12,6 +12,7 @@ import {
   Paper,
   TextField,
   Typography,
+  colors,
 } from "@mui/material";
 import Link from "next/link";
 import { useState } from "react";
@@ -22,32 +23,43 @@ const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [userNameEmptyError, setUserNameEmptyError] = useState("");
   const [passwordEmptyError, setPasswordEmptyError] = useState("");
+  const [isUserNameEmpty, setIsUserNameEmpty] = useState(false);
+  const [isPasswordEmpty, setIsPasswordEmpty] = useState(false);
 
-  async function HandleLogin() {
+  async function HandleSignin() {
+    // Resetting error states
+    setErrorMessage("");
+    setIsUserNameEmpty(false);
+    setIsPasswordEmpty(false);
+
     try {
       const validateForm: ReturnProps = validationForm(userName, password);
       if (validateForm.isEmpty) {
         if (validateForm.forUserName) {
+          setIsUserNameEmpty(true);
           setUserNameEmptyError(validateForm.forUserName);
         }
         if (validateForm.forPassword) {
+          setIsPasswordEmpty(true);
           setPasswordEmptyError(validateForm.forPassword);
         }
       } else {
         const response = await LoginCommon({ userName, password });
         console.log("This is Response: ", response.Data);
+        // save to cookie.
       }
     } catch (error) {
       if (error instanceof CustomError) {
         console.log("This is Error in fetch: ", error._error);
         if (error._error.Message instanceof Array) {
-          //This is not require since every thing is handle by frontend
+          //This is not required since every thing is handle by frontend
         }
         setErrorMessage(error._error.Message);
         console.log("This is Error: ", error._error.Message);
       }
     }
   }
+
   return (
     <Container
       component="main"
@@ -68,17 +80,14 @@ const LoginPage = () => {
         }}
       >
         <Typography variant="h2" gutterBottom sx={{ marginBottom: 2 }}>
-          Sign-in and continue
+          Sign in to your
         </Typography>
         <Typography
           variant="h2"
           gutterBottom
           sx={{ marginTop: 2, marginBottom: 2 }}
         >
-          your journey of
-        </Typography>
-        <Typography variant="h2" gutterBottom sx={{ marginTop: 2 }}>
-          blogging...
+          Bislerium Account
         </Typography>
       </Box>
       <Box
@@ -88,28 +97,37 @@ const LoginPage = () => {
           flexDirection: "column",
           justifyContent: "center",
           textAlign: "center",
-          paddingRight: 15,
+          paddingRight: 0,
         }}
       >
         <Paper
-          elevation={3}
+          elevation={0}
           sx={{
-            p: 4,
-            width: "80%",
-            maxWidth: 400,
+            border: "1px solid #cccccc",
+            p: 7,
+            maxWidth: 450,
             margin: "0 auto",
             backgroundColor: "#f1efea",
           }}
         >
-          <Typography component="h1" variant="h5" sx={{ mb: 2 }}>
-            Login
-          </Typography>
+          <Box
+            sx={{
+              textAlign: "center",
+            }}
+          >
+            <Typography variant="h4" sx={{ mb: 2 }}>
+              Sign in
+            </Typography>
+          </Box>
           {errorMessage}
           <TextField
             margin="normal"
             required
             fullWidth
-            placeholder={userNameEmptyError || "UserName"}
+            variant="standard"
+            label="Username"
+            error={isUserNameEmpty}
+            helperText={isUserNameEmpty ? "Username Required" : ""}
             onChange={(e) => {
               setUserName(e.target.value);
               if (e.target.value.trim() !== "") {
@@ -121,7 +139,10 @@ const LoginPage = () => {
             margin="normal"
             required
             fullWidth
-            placeholder={passwordEmptyError || "Password"}
+            variant="standard"
+            label="Password"
+            error={isPasswordEmpty}
+            helperText={isPasswordEmpty ? "Password Required" : ""}
             type="password"
             onChange={(e) => {
               setPassword(e.target.value);
@@ -130,15 +151,21 @@ const LoginPage = () => {
               }
             }}
           />
+          <Typography variant="body2" sx={{ mt: 1, textAlign: "right" }}>
+            <Link style={{ color: "blue" }} href="/forgot-password">
+              Forgot Password?
+            </Link>
+          </Typography>
           <Button
             type="submit"
+            disableElevation
             fullWidth
             variant="contained"
-            onClick={HandleLogin}
+            onClick={HandleSignin}
             sx={{
-              mt: 3,
+              mt: 4,
               backgroundColor: "black",
-              "&:hover": { backgroundColor: "black" },
+              "&:hover": { backgroundColor: "#303030" },
             }}
           >
             Sign In
@@ -146,7 +173,7 @@ const LoginPage = () => {
           <Typography variant="body2" sx={{ mt: 5 }}>
             Dont have an account?{" "}
             <Link style={{ color: "blue" }} href="/register">
-              Sign up
+              Register
             </Link>
           </Typography>
         </Paper>
