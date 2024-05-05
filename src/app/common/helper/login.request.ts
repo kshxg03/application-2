@@ -6,7 +6,7 @@ export interface LoginProps {
   password: string;
 }
 
-export async function LoginCommon(dataToSend: LoginProps) {
+export async function Login(dataToSend: LoginProps) {
   const response: Response = await fetch(`${BASE_URL}api/user/auth/login`, {
     method: "POST",
     headers: {

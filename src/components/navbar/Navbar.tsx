@@ -9,11 +9,13 @@ const Navbar = () => {
       <div className={styles.logo}>
         <Link href="/">Bislerium</Link>
       </div>
-      <div>
-        <Links />
-      </div>
-      <div>
-        <DynamicLinks />
+      <div className={styles.links}>
+        <div>
+          <Links />
+        </div>
+        <div>
+          <DynamicLinks />
+        </div>
       </div>
     </div>
   );

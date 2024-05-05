@@ -1,6 +1,6 @@
 "use client";
 import { CustomError } from "@/app/common/errors/custom.error";
-import { LoginCommon } from "@/app/common/helper/login.request";
+import { Login } from "@/app/common/helper/login.request";
 import {
   ReturnProps,
   validateForm,
@@ -65,7 +65,7 @@ const LoginPage = () => {
       } else {
         var response;
         if (email === "") {
-          response = await LoginCommon({
+          response = await Login({
             userName,
             email: null,
             password,
@@ -73,7 +73,7 @@ const LoginPage = () => {
           console.log("This is Response: ", response.Data);
         }
         if (userName === "") {
-          response = await LoginCommon({
+          response = await Login({
             userName: null,
             email,
             password,
@@ -141,11 +141,11 @@ const LoginPage = () => {
         <Paper
           elevation={0}
           sx={{
-            border: "1px solid #cccccc",
+            border: "2px solid #cccccc",
             p: 7,
             maxWidth: 450,
             margin: "0 auto",
-            backgroundColor: "#f1efea",
+            backgroundColor: "#f4f4f4",
           }}
         >
           <Box
@@ -226,7 +226,7 @@ const LoginPage = () => {
           >
             Sign In
           </Button>
-          <Typography variant="body2" sx={{ mt: 5 }}>
+          <Typography variant="body2" sx={{ mt: 4 }}>
             Dont have an account?{" "}
             <Link style={{ color: "blue" }} href="/register">
               Register

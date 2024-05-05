@@ -11,15 +11,15 @@
     width: 0;
     margin-top: 5px;
     height: 2px;
-    background: #000;
 }
 
 .container:hover::after {
     width: 100%;
     transition: width .3s;
+    background: white;
 }
 
 .active{
-    border-bottom: 2px solid var(--text);
+    border-bottom: 2px solid var(--bg);
     font-weight: 600;
 }

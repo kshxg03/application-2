@@ -84,9 +84,7 @@ const RegisterPage = () => {
           email,
           password,
         });
-        console.log("This is Response: ", response.Data);
-        // Redirect to Login page
-        router.push("/login");
+        console.log("This is Response: ", response.Message);
       }
     } catch (error) {
       if (error instanceof CustomError) {
@@ -150,11 +148,11 @@ const RegisterPage = () => {
         <Paper
           elevation={0}
           sx={{
-            border: "1px solid #cccccc",
+            border: "2px solid #cccccc",
             p: 7,
             maxWidth: 450,
             margin: "0 auto",
-            backgroundColor: "#f1efea",
+            backgroundColor: "#f4f4f4",
           }}
         >
           <Box
@@ -248,14 +246,14 @@ const RegisterPage = () => {
             variant="contained"
             onClick={HandleSignup}
             sx={{
-              mt: 4,
+              mt: 6,
               backgroundColor: "black",
               "&:hover": { backgroundColor: "#303030" },
             }}
           >
             Create account
           </Button>
-          <Typography variant="body2" sx={{ mt: 5 }}>
+          <Typography variant="body2" sx={{ mt: 4 }}>
             Dont have an account?{" "}
             <Link style={{ color: "blue" }} href="/login">
               Sign in
