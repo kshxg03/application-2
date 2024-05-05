@@ -9,6 +9,8 @@ import {
   Box,
   Button,
   Container,
+  IconButton,
+  InputAdornment,
   Paper,
   TextField,
   Typography,
@@ -17,16 +19,25 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Cookies from "js-cookie";
+import { VisibilityOff, Visibility } from "@mui/icons-material";
 
 const LoginPage = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [errorMessage, setErrorMessage] = useState("");
   const [userNameEmptyError, setUserNameEmptyError] = useState("");
   const [passwordEmptyError, setPasswordEmptyError] = useState("");
+
   const [isUserNameEmpty, setIsUserNameEmpty] = useState(false);
   const [isPasswordEmpty, setIsPasswordEmpty] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const router = useRouter();
 
@@ -52,8 +63,9 @@ const LoginPage = () => {
           setPasswordEmptyError(validatedForm.forPassword);
         }
       } else {
+        var response;
         if (email === "") {
-          const response = await LoginCommon({
+          response = await LoginCommon({
             userName,
             email: null,
             password,
@@ -61,7 +73,7 @@ const LoginPage = () => {
           console.log("This is Response: ", response.Data);
         }
         if (userName === "") {
-          const response = await LoginCommon({
+          response = await LoginCommon({
             userName: null,
             email,
             password,
@@ -69,6 +81,7 @@ const LoginPage = () => {
           console.log("This is Response: ", response.Data);
         }
         // Save to cookie.
+        Cookies.set("Token", response.Data);
 
         // Redirect to Home page
         router.push("/");
@@ -173,12 +186,25 @@ const LoginPage = () => {
             label="Password"
             error={isPasswordEmpty}
             helperText={isPasswordEmpty ? passwordEmptyError : ""}
-            type="password"
+            type={showPassword ? "text" : "password"}
             onChange={(e) => {
               setPassword(e.target.value);
               if (e.target.value.trim() !== "") {
                 setPasswordEmptyError("");
               }
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
             }}
           />
           <Typography variant="body2" sx={{ mt: 1, textAlign: "right" }}>

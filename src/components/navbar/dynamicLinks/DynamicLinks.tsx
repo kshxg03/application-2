@@ -1,14 +1,16 @@
 import Link from "next/link";
 import styles from "./dynamicLinks.module.css";
+import Cookies from "js-cookie";
 
 const DynamicLinks = () => {
-  // TEMPORARY STATE
-  const sessionExists = false;
-  const isAdmin = false;
+  const token = Cookies.get("Token");
+
+  const tokenExists = false;
+  var isAdmin = false;
 
   return (
     <div className={styles.links}>
-      {sessionExists ? (
+      {tokenExists ? (
         isAdmin ? (
           <Link href="/admin">
             <button className={styles.user}>Admin</button>
