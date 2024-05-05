@@ -8,7 +8,7 @@ export interface RegisterProps {
 }
 
 export async function RegisterCommon(dataToSend: RegisterProps) {
-  const response: Response = await fetch(`${BASE_URL}api/user/auth/login`, {
+  const response: Response = await fetch(`${BASE_URL}api/user/user/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -17,7 +17,7 @@ export async function RegisterCommon(dataToSend: RegisterProps) {
   });
   if (!response.ok) {
     const error = await response.json();
-    console.log("This is Error in LoginCommon: ", error);
+    console.log("This is Error in RegisterCommon: ", error);
     throw new CustomError(error);
   }
   return await response.json();

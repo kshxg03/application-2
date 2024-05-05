@@ -1,7 +1,8 @@
 import { BASE_URL } from "../constant/constant";
 import { CustomError } from "../errors/custom.error";
 export interface LoginProps {
-  userName: string;
+  userName: string | null;
+  email: string | null;
   password: string;
 }
 

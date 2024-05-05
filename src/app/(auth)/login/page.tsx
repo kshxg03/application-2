@@ -3,7 +3,7 @@ import { CustomError } from "@/app/common/errors/custom.error";
 import { LoginCommon } from "@/app/common/helper/login.request";
 import {
   ReturnProps,
-  validationForm,
+  validateForm,
 } from "@/app/common/helper/login.validation";
 import {
   Box,
@@ -15,10 +15,12 @@ import {
   colors,
 } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const LoginPage = () => {
   const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [userNameEmptyError, setUserNameEmptyError] = useState("");
@@ -26,27 +28,50 @@ const LoginPage = () => {
   const [isUserNameEmpty, setIsUserNameEmpty] = useState(false);
   const [isPasswordEmpty, setIsPasswordEmpty] = useState(false);
 
-  async function HandleSignin() {
+  const router = useRouter();
+
+  async function HandleLogin() {
     // Resetting error states
     setErrorMessage("");
     setIsUserNameEmpty(false);
     setIsPasswordEmpty(false);
 
     try {
-      const validateForm: ReturnProps = validationForm(userName, password);
-      if (validateForm.isEmpty) {
-        if (validateForm.forUserName) {
+      const validatedForm: ReturnProps = validateForm(
+        userName,
+        email,
+        password
+      );
+      if (validatedForm.isEmpty) {
+        if (validatedForm.forUserName && validatedForm.forEmail) {
           setIsUserNameEmpty(true);
-          setUserNameEmptyError(validateForm.forUserName);
+          setUserNameEmptyError(validatedForm.forUserName);
         }
-        if (validateForm.forPassword) {
+        if (validatedForm.forPassword) {
           setIsPasswordEmpty(true);
-          setPasswordEmptyError(validateForm.forPassword);
+          setPasswordEmptyError(validatedForm.forPassword);
         }
       } else {
-        const response = await LoginCommon({ userName, password });
-        console.log("This is Response: ", response.Data);
-        // save to cookie.
+        if (email === "") {
+          const response = await LoginCommon({
+            userName,
+            email: null,
+            password,
+          });
+          console.log("This is Response: ", response.Data);
+        }
+        if (userName === "") {
+          const response = await LoginCommon({
+            userName: null,
+            email,
+            password,
+          });
+          console.log("This is Response: ", response.Data);
+        }
+        // Save to cookie.
+
+        // Redirect to Home page
+        router.push("/");
       }
     } catch (error) {
       if (error instanceof CustomError) {
@@ -125,11 +150,16 @@ const LoginPage = () => {
             required
             fullWidth
             variant="standard"
-            label="Username"
+            label="Username or Email"
             error={isUserNameEmpty}
-            helperText={isUserNameEmpty ? "Username Required" : ""}
+            helperText={isUserNameEmpty ? userNameEmptyError : ""}
             onChange={(e) => {
-              setUserName(e.target.value);
+              if (e.target.value.includes("@")) {
+                setEmail(e.target.value);
+              } else {
+                setEmail("");
+                setUserName(e.target.value);
+              }
               if (e.target.value.trim() !== "") {
                 setUserNameEmptyError("");
               }
@@ -142,7 +172,7 @@ const LoginPage = () => {
             variant="standard"
             label="Password"
             error={isPasswordEmpty}
-            helperText={isPasswordEmpty ? "Password Required" : ""}
+            helperText={isPasswordEmpty ? passwordEmptyError : ""}
             type="password"
             onChange={(e) => {
               setPassword(e.target.value);
@@ -161,7 +191,7 @@ const LoginPage = () => {
             disableElevation
             fullWidth
             variant="contained"
-            onClick={HandleSignin}
+            onClick={HandleLogin}
             sx={{
               mt: 4,
               backgroundColor: "black",
