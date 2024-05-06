@@ -8,7 +8,7 @@ import { IconButton } from "@mui/material";
 const DynamicLinks = () => {
   const token = Cookies.get("Token");
 
-  const tokenExists = true;
+  var tokenExists = true;
   var isAdmin = false;
 
   return (
@@ -20,14 +20,14 @@ const DynamicLinks = () => {
           </Link>
         ) : (
           <>
-            <IconButton aria-label="toggle password visibility" edge="end">
+            <IconButton aria-label="account" edge="end">
               <NotificationsIcon
                 fontSize="large"
                 color="primary"
                 sx={{ fontSize: 32, color: "white" }}
               />
             </IconButton>
-            <IconButton aria-label="toggle password visibility" edge="end">
+            <IconButton aria-label="account" edge="end">
               <AccountCircleIcon
                 fontSize="large"
                 sx={{ fontSize: 32, color: "white" }}

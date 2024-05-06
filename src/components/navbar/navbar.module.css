@@ -1,11 +1,10 @@
 .container{
     background-color: black;
-    height: 60px;
+    height: 65px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 50px 0 50px;
-    margin-bottom: 60px;
 }
 
 .logo{

@@ -103,6 +103,8 @@ const LoginPage = () => {
       component="main"
       maxWidth="xl"
       sx={{
+        paddingTop: "60px",
+        minHeight: "80vh",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "stretch",
