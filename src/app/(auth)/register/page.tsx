@@ -103,6 +103,8 @@ const RegisterPage = () => {
       component="main"
       maxWidth="xl"
       sx={{
+        paddingTop: "60px",
+        minHeight: "100vh",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "stretch",

@@ -1,3 +1,4 @@
+"use client";
 import {
   Box,
   Button,
@@ -6,69 +7,55 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
+  Chip,
   Container,
   Pagination,
+  Stack,
   Typography,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { cardsData } from "../common/mock/mock-data";
+import { useState } from "react";
 
 const BlogsPage = () => {
-  const cardsData = [
-    {
-      title: "5 facts about Rome that will amaze everyone.",
-      author: "Anderson Lewis",
-      image: "1.jpg",
-    },
-    {
-      title: "The ultimate guide to hiking trails in the Rockies.",
-      author: "Emily Johnson",
-      image: "2.jpg",
-    },
-    {
-      title: "10 delicious recipes for homemade pizza.",
-      author: "Michael Smith",
-      image: "3.jpg",
-    },
-    {
-      title: "Discovering the wonders of Machu Picchu.",
-      author: "Sophia Garcia",
-      image: "4.jpg",
-    },
-    {
-      title: "Exploring the streets of Tokyo: A travel diary.",
-      author: "Daniel Brown",
-      image: "5.jpg",
-    },
-    {
-      title: "The best beaches for your next tropical vacation.",
-      author: "Olivia White",
-      image: "6.jpg",
-    },
-    {
-      title: "Top 10 hiking trails in California.",
-      author: "Emma Robinson",
-      image: "7.jpg",
-    },
-    {
-      title: "5 easy steps to start your own vegetable garden.",
-      author: "James Miller",
-      image: "8.jpg",
-    },
-    {
-      title: "A beginner's guide to meditation and mindfulness.",
-      author: "Ava Martinez",
-      image: "9.jpg",
-    },
-    {
-      title: "The history of jazz music: A fascinating journey.",
-      author: "David Wilson",
-      image: "example-blog-image.jpg",
-    },
-  ];
+  const router = useRouter();
+
+  const handleAllFilter = () => {
+    router.push("/blogs");
+  };
+
+  const handlePopularFilter = () => {
+    router.push("/blogs");
+  };
+
+  const handleLatestFilter = () => {
+    router.push("/blogs");
+  };
+
+  const cardsPerPage = 15;
+  const totalCards = cardsData.length;
+  const totalPages = Math.ceil(totalCards / cardsPerPage);
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
+    setCurrentPage(page);
+  };
+
+  const getPageCards = () => {
+    const startIndex = (currentPage - 1) * cardsPerPage;
+    const endIndex = startIndex + cardsPerPage;
+    return cardsData.slice(startIndex, endIndex);
+  };
 
   return (
     <Container
       maxWidth="xl"
       sx={{
+        paddingTop: "60px",
         display: "flex",
         flexDirection: "column",
         gap: 5,
@@ -88,32 +75,30 @@ const BlogsPage = () => {
       >
         <Typography
           variant="h5"
-          mr="55px"
+          mr="35px"
           sx={{ color: "#333", fontWeight: "bold" }}
         >
           Explore Blogs
         </Typography>
-        <ButtonGroup
-          color="primary"
-          variant="text"
-          size="small"
-          sx={{
-            "& .MuiButtonGroup-grouped": {
-              borderRight: "1px solid black", // Change this to your desired color
-            },
-            "& .MuiButton-root": {
-              paddingLeft: "15px",
-              paddingRight: "15px", // Adjust the margin to add spacing between buttons
-            },
-            "& .MuiButtonGroup-grouped:last-child": {
-              borderRight: "none", // Remove border from all buttons except the last one
-            },
-          }}
-        >
-          <Button sx={{ color: "black" }}>All</Button>
-          <Button sx={{ color: "black" }}>Popular</Button>
-          <Button sx={{ color: "black" }}>Latest</Button>
-        </ButtonGroup>
+        <Stack direction="row" spacing={1.5}>
+          <Chip
+            label="All"
+            onClick={handleAllFilter}
+            sx={{ borderRadius: "4px" }}
+          />
+          <Chip
+            label="Popular"
+            variant="outlined"
+            onClick={handlePopularFilter}
+            sx={{ borderRadius: "4px" }}
+          />
+          <Chip
+            label="Latest"
+            variant="outlined"
+            onClick={handleLatestFilter}
+            sx={{ borderRadius: "4px" }}
+          />
+        </Stack>
       </Box>
       <Box
         sx={{
@@ -126,15 +111,18 @@ const BlogsPage = () => {
           marginRight: "25px",
         }}
       >
-        {cardsData.map((card, index) => (
+        {getPageCards().map((card, index) => (
           <Card
             sx={{
+              bgcolor: "#1a1a1a",
+              color: "white",
               maxHeight: 300,
               maxWidth: 240,
-              borderRadius: 0,
+              borderRadius: 1,
               "&:hover": {
-                transform: "scale(1.1)",
-                backgroundColor: "white",
+                transform: "scale(1.02)",
+                bgcolor: "#f2f2f2",
+                color: "black",
               },
               transition: "all 0.2s ease-in-out",
             }}
@@ -151,9 +139,7 @@ const BlogsPage = () => {
                 <Typography gutterBottom variant="body1" component="div">
                   {card.title}
                 </Typography>
-                <Typography fontSize={12} color="text.secondary">
-                  {card.author}
-                </Typography>
+                <Typography fontSize={12}>{card.author}</Typography>
               </CardContent>
             </CardActionArea>
           </Card>
@@ -169,7 +155,13 @@ const BlogsPage = () => {
           marginRight: "25px",
         }}
       >
-        <Pagination count={10} variant="outlined" shape="rounded" />
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
+        />
       </Box>
     </Container>
   );
