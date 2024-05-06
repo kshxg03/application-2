@@ -132,6 +132,11 @@ const BlogsPage = () => {
               maxHeight: 300,
               maxWidth: 240,
               borderRadius: 0,
+              "&:hover": {
+                transform: "scale(1.1)",
+                backgroundColor: "white",
+              },
+              transition: "all 0.2s ease-in-out",
             }}
             elevation={0}
           >
