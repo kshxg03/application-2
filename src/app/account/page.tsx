@@ -78,7 +78,6 @@ const AccountPage = () => {
         justifyContent={"space-between"}
         height={"700px"}
         width={"100%"}
-        border={"1px solid "}
       >
         {/* Profile Information */}
         <Box
@@ -91,16 +90,14 @@ const AccountPage = () => {
             height: "100%",
             padding: "20px",
             bgcolor: "black",
-            borderTop: "1px solid white",
-            borderBottom: "1px solid white",
             color: "white",
           }}
         >
           <Avatar
             sx={{ bgcolor: green[500], width: 100, height: 100, margin: 2 }}
-          >
-            AS
-          </Avatar>
+            alt="Aditya Shrestha"
+            src="/static/images/avatar/2.jpg"
+          ></Avatar>
           <Chip icon={<Face6Icon />} label="Bislerium Member" color="success" />
           <Box sx={{ marginBottom: 2 }}>
             <Box
@@ -133,7 +130,7 @@ const AccountPage = () => {
                   whiteSpace: "nowrap",
                 }}
               >
-                johndosasasasasasasase@example.com
+                johndoe@example.com
               </Typography>
             </Box>
           </Box>
@@ -180,16 +177,17 @@ const AccountPage = () => {
               <BorderAllIcon />
               <Typography variant="h6">My Blogs</Typography>
             </Box>
+            <Divider sx={{ width: "100%", marginTop: 1 }} />
             <Container
               maxWidth="xl"
               sx={{
-                height: "90%",
+                paddingY: "10px",
+                height: "85%",
                 width: "100%",
                 overflowY: "scroll",
-                marginBottom: "50px",
+                marginBottom: "0px",
               }}
             >
-              <Divider sx={{ width: "100%", marginBottom: 2, marginTop: 1 }} />
               {userBlogs.map((blog) => (
                 <Card
                   key={blog.id}
@@ -226,6 +224,7 @@ const AccountPage = () => {
                 </Card>
               ))}
             </Container>
+            <Divider sx={{ width: "100%" }} />
           </Box>
         </Box>
       </Box>
