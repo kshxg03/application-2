@@ -27,20 +27,20 @@ const Home = () => {
           display: "flex",
           flexDirection: "column",
           marginBottom: "60px",
-          height: "91.5vh",
+          height: "91vh",
           overflow: "hidden",
         }}
       >
         <img src="banner/banner2.png" alt="banner" />
         <div
           style={{
-            width: "100%",
             height: "100%",
+            width: "100%",
+            paddingTop: "25%",
             position: "absolute",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            paddingTop: "380px",
           }}
         >
           <button

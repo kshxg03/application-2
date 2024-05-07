@@ -13,6 +13,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { green } from "@mui/material/colors";
 
 const pages = [
   {
@@ -178,6 +179,19 @@ function Navbar() {
                 </Button>
               ) : (
                 <>
+                  <Button
+                    href="/add-blog"
+                    variant="contained"
+                    sx={{
+                      color: "black",
+                      bgcolor: "white",
+                      borderColor: "white",
+                      mr: 3,
+                      "&:hover": { backgroundColor: "lightgrey" },
+                    }}
+                  >
+                    Create
+                  </Button>
                   <IconButton aria-label="account" edge="end" sx={{ mr: 3 }}>
                     <NotificationsIcon
                       color="primary"
@@ -187,7 +201,11 @@ function Navbar() {
                   <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       <Avatar
-                        alt="Remy Sharp"
+                        sx={{
+                          bgcolor: green[500],
+                          margin: 2,
+                        }}
+                        alt="Aditya Shrestha"
                         src="/static/images/avatar/2.jpg"
                       />
                     </IconButton>
