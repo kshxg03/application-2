@@ -1,3 +1,4 @@
+"use client";
 import { Height, Image } from "@mui/icons-material";
 import {
   Avatar,
@@ -19,10 +20,33 @@ import {
 } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
-import SendIcon from '@mui/icons-material/Send';
+import SendIcon from "@mui/icons-material/Send";
 import Link from "next/link";
+import { useState } from "react";
 
 const SingleBlogPage = () => {
+  // nakli data
+  const response = {
+    Data: {
+      isUpVote: false,
+    },
+  };
+
+  const [isUpVote, setIsUpVote] = useState(response.Data.isUpVote);
+  const [isDownVoteDisabled, setIsDownVoteDisabled] = useState(
+    !response.Data.isUpVote
+  );
+
+  const handleUpVote = () => {
+    setIsUpVote(true);
+    setIsDownVoteDisabled(true);
+  };
+
+  const handleDownVote = () => {
+    setIsUpVote(false);
+    setIsDownVoteDisabled(false);
+  };
+
   return (
     <Box
       sx={{
@@ -33,10 +57,8 @@ const SingleBlogPage = () => {
         overflowWrap: "break-word",
       }}
     >
-      <Breadcrumbs sx={{marginBlock: 3}}>
-      <Link href={"/blogs"}>
-        All Blogs
-      </Link>
+      <Breadcrumbs sx={{ marginBlock: 3 }}>
+        <Link href={"/blogs"}>All Blogs</Link>
         <Typography color="text.primary">Blog Details</Typography>
       </Breadcrumbs>
       <Card
@@ -61,12 +83,12 @@ const SingleBlogPage = () => {
       </Card>
       <Box display={"flex"} alignItems={"center"} gap={2}>
         <Box marginTop={"26px"}>
-        <AvatarGroup max={3}>
-          <Avatar />
-          <Avatar/> 
-          <Avatar/>
-          <Avatar/>
-        </AvatarGroup>
+          <AvatarGroup max={3}>
+            <Avatar />
+            <Avatar />
+            <Avatar />
+            <Avatar />
+          </AvatarGroup>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", marginTop: "30px" }}>
           <Typography
@@ -75,7 +97,17 @@ const SingleBlogPage = () => {
           >
             45
           </Typography>
-          <Button size="small" disableElevation startIcon={<ThumbUpIcon/>} variant="contained" sx={{bgcolor: "#1dd3b0"}}>Upvote</Button>
+          <Button
+            size="small"
+            disableElevation
+            startIcon={<ThumbUpIcon />}
+            variant="contained"
+            sx={{ bgcolor: "#1dd3b0" }}
+            onClick={handleUpVote}
+            disabled={isUpVote}
+          >
+            Upvote
+          </Button>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", marginTop: "30px" }}>
           <Typography
@@ -84,22 +116,41 @@ const SingleBlogPage = () => {
           >
             55
           </Typography>
-          <Button size="small" disableElevation startIcon={<ThumbDownAltIcon/>} variant="contained" sx={{bgcolor: "#ef233c"}}>Downvote</Button>
+          <Button
+            size="small"
+            disableElevation
+            startIcon={<ThumbDownAltIcon />}
+            variant="contained"
+            sx={{ bgcolor: "#ef233c" }}
+            onClick={handleDownVote}
+            disabled={!isDownVoteDisabled}
+          >
+            Downvote
+          </Button>
         </Box>
       </Box>
-      <Box marginTop={"40px"} sx={{display: "flex", flexDirection: "row", alignItems: "center", gap: 2}}>
-        <Box sx={{display: "flex", flexDirection: "row", alignItems: "center", gap: 2}}>
-        <Avatar></Avatar>
-        <Typography
-          sx={{ fontSize: "20px"}}
+      <Box
+        marginTop={"40px"}
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 2,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 2,
+          }}
         >
-          Rishav Kumar Gurung
-        </Typography>
+          <Avatar></Avatar>
+          <Typography sx={{ fontSize: "20px" }}>Rishav Kumar Gurung</Typography>
         </Box>
         <Box>
-          <Typography sx={{fontSize: "14px"}}>
-          12/12/2024
-          </Typography>
+          <Typography sx={{ fontSize: "14px" }}>12/12/2024</Typography>
         </Box>
       </Box>
       <Box marginTop={"30px"}>
@@ -129,16 +180,15 @@ const SingleBlogPage = () => {
           page editors now use Lorem Ipsum as their default model text, and a
           search for 'lorem ipsum' will uncover many web sites still in their
           infancy. Various versions have evolved over the years, sometimes by
-          accident, sometimes on purpose.
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum is that it has a more-or-less normal distribution of
-          letters, as opposed to using 'Content here, content here', making it
-          look like readable English. Many desktop publishing packages and web
-          page editors now use Lorem Ipsum as their default model text, and a
-          search for 'lorem ipsum' will uncover many web sites still in their
-          infancy. Various versions have evolved over the years, sometimes by
-          accident, sometimes on purpose.
+          accident, sometimes on purpose. It is a long established fact that a
+          reader will be distracted by the readable content of a page when
+          looking at its layout. The point of using Lorem Ipsum is that it has a
+          more-or-less normal distribution of letters, as opposed to using
+          'Content here, content here', making it look like readable English.
+          Many desktop publishing packages and web page editors now use Lorem
+          Ipsum as their default model text, and a search for 'lorem ipsum' will
+          uncover many web sites still in their infancy. Various versions have
+          evolved over the years, sometimes by accident, sometimes on purpose.
           It is a long established fact that a reader will be distracted by the
           readable content of a page when looking at its layout. The point of
           using Lorem Ipsum is that it has a more-or-less normal distribution of
@@ -156,7 +206,7 @@ const SingleBlogPage = () => {
           variant="h5"
           sx={{ width: "80%", margin: "auto", marginBottom: "15px" }}
         >
-          Comments <span style={{fontWeight: "bold"}}>(2)</span> 
+          Comments <span style={{ fontWeight: "bold" }}>(2)</span>
         </Typography>
         <Box
           sx={{
@@ -181,25 +231,35 @@ const SingleBlogPage = () => {
             }}
           >
             <Avatar></Avatar>
-            <Box sx={{width: "85%", margin: "auto" }}>
+            <Box sx={{ width: "85%", margin: "auto" }}>
               <Typography variant="body1" sx={{ fontWeight: "600" }}>
                 Aditya Shrestha
               </Typography>
-              <Typography sx={{textAlign: "justify"}}>
+              <Typography sx={{ textAlign: "justify" }}>
                 Hello, its my first comment, how are you??? I am fine, i like
                 this blog, thankyou!!!!!!
               </Typography>
             </Box>
             <Box sx={{ position: "absolute", top: 5, right: 5 }}>
-              <Box sx={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-              <Typography variant="body2" sx={{color: "#1dd3b0"}}>2</Typography>
-              <IconButton>
-                <ThumbUpIcon sx={{color: "#1dd3b0"}} />
-              </IconButton>
-              <Typography variant="body2" sx={{color: "#ef233c"}}>2</Typography>
-              <IconButton>
-                <ThumbDownAltIcon sx={{ color: "#ef233c"}}/>
-              </IconButton>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="body2" sx={{ color: "#1dd3b0" }}>
+                  2
+                </Typography>
+                <IconButton>
+                  <ThumbUpIcon sx={{ color: "#1dd3b0" }} />
+                </IconButton>
+                <Typography variant="body2" sx={{ color: "#ef233c" }}>
+                  2
+                </Typography>
+                <IconButton>
+                  <ThumbDownAltIcon sx={{ color: "#ef233c" }} />
+                </IconButton>
               </Box>
             </Box>
           </Card>
@@ -218,25 +278,35 @@ const SingleBlogPage = () => {
             }}
           >
             <Avatar></Avatar>
-            <Box sx={{width: "85%", margin: "auto" }}>
+            <Box sx={{ width: "85%", margin: "auto" }}>
               <Typography variant="body1" sx={{ fontWeight: "600" }}>
                 Aditya Shrestha
               </Typography>
-              <Typography sx={{textAlign: "justify"}}>
+              <Typography sx={{ textAlign: "justify" }}>
                 Hello, its my first comment, how are you??? I am fine, i like
                 this blog, thankyou!!!!!!
               </Typography>
             </Box>
             <Box sx={{ position: "absolute", top: 5, right: 5 }}>
-              <Box sx={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-              <Typography variant="body2" sx={{color: "#1dd3b0"}}>2</Typography>
-              <IconButton>
-                <ThumbUpIcon sx={{color: "#1dd3b0"}} />
-              </IconButton>
-              <Typography variant="body2" sx={{color: "#ef233c"}}>2</Typography>
-              <IconButton>
-                <ThumbDownAltIcon sx={{ color: "#ef233c"}}/>
-              </IconButton>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="body2" sx={{ color: "#1dd3b0" }}>
+                  2
+                </Typography>
+                <IconButton>
+                  <ThumbUpIcon sx={{ color: "#1dd3b0" }} />
+                </IconButton>
+                <Typography variant="body2" sx={{ color: "#ef233c" }}>
+                  2
+                </Typography>
+                <IconButton>
+                  <ThumbDownAltIcon sx={{ color: "#ef233c" }} />
+                </IconButton>
               </Box>
             </Box>
           </Card>
@@ -255,44 +325,54 @@ const SingleBlogPage = () => {
             }}
           >
             <Avatar></Avatar>
-            <Box sx={{width: "85%", margin: "auto" }}>
+            <Box sx={{ width: "85%", margin: "auto" }}>
               <Typography variant="body1" sx={{ fontWeight: "600" }}>
                 Aditya Shrestha
               </Typography>
-              <Typography sx={{textAlign: "justify"}}>
+              <Typography sx={{ textAlign: "justify" }}>
                 Hello, its my first comment, how are you??? I am fine, i like
                 this blog, thankyou!!!!!!
               </Typography>
             </Box>
             <Box sx={{ position: "absolute", top: 5, right: 5 }}>
-              <Box sx={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-              <Typography variant="body2" sx={{color: "#1dd3b0"}}>2</Typography>
-              <IconButton>
-                <ThumbUpIcon sx={{color: "#1dd3b0"}} />
-              </IconButton>
-              <Typography variant="body2" sx={{color: "#ef233c"}}>2</Typography>
-              <IconButton>
-                <ThumbDownAltIcon sx={{ color: "#ef233c"}}/>
-              </IconButton>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="body2" sx={{ color: "#1dd3b0" }}>
+                  2
+                </Typography>
+                <IconButton>
+                  <ThumbUpIcon sx={{ color: "#1dd3b0" }} />
+                </IconButton>
+                <Typography variant="body2" sx={{ color: "#ef233c" }}>
+                  2
+                </Typography>
+                <IconButton>
+                  <ThumbDownAltIcon sx={{ color: "#ef233c" }} />
+                </IconButton>
               </Box>
             </Box>
           </Card>
         </Box>
       </Box>
-      <Box sx={{width: "720px", marginLeft: "89px", marginTop: "20px"}}>
-      <TextField
-        fullWidth
-        placeholder="Add a comment"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton>
-                <SendIcon/>
-              </IconButton>
-            </InputAdornment>
-          )
-        }}
-      />
+      <Box sx={{ width: "720px", marginLeft: "89px", marginTop: "20px" }}>
+        <TextField
+          fullWidth
+          placeholder="Add a comment"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton>
+                  <SendIcon />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
       </Box>
     </Box>
   );
