@@ -89,7 +89,7 @@ const LoginPage = () => {
         alignItems: "center",
         justifyContent: "center",
         height: "700px",
-        overflow: "hidden"
+        overflow: "hidden",
       }}
     >
       <Box
