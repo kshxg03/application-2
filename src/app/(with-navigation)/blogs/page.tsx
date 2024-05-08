@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { cardsData } from "../common/mock/mock-data";
+import { cardsData } from "../../common/mock/mock-data";
 import { useState } from "react";
 
 const BlogsPage = () => {

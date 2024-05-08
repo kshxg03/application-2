@@ -87,6 +87,9 @@ const LoginPage = () => {
       maxWidth="xl"
       sx={{
         alignItems: "center",
+        justifyContent: "center",
+        height: "700px",
+        overflow: "hidden"
       }}
     >
       <Box
@@ -95,6 +98,7 @@ const LoginPage = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
+          marginTop: "150px",
           textAlign: "center",
           paddingRight: 0,
         }}

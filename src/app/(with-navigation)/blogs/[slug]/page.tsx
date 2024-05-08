@@ -1,7 +1,9 @@
 import { Height, Image } from "@mui/icons-material";
 import {
   Avatar,
+  AvatarGroup,
   Box,
+  Breadcrumbs,
   Button,
   Card,
   CardActionArea,
@@ -18,6 +20,7 @@ import {
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import SendIcon from '@mui/icons-material/Send';
+import Link from "next/link";
 
 const SingleBlogPage = () => {
   return (
@@ -30,6 +33,12 @@ const SingleBlogPage = () => {
         overflowWrap: "break-word",
       }}
     >
+      <Breadcrumbs sx={{marginBlock: 3}}>
+      <Link href={"/blogs"}>
+        All Blogs
+      </Link>
+        <Typography color="text.primary">Blog Details</Typography>
+      </Breadcrumbs>
       <Card
         sx={{
           bgcolor: "#1a1a1a",
@@ -50,7 +59,15 @@ const SingleBlogPage = () => {
           }}
         />
       </Card>
-      <Box display={"flex"} gap={2}>
+      <Box display={"flex"} alignItems={"center"} gap={2}>
+        <Box marginTop={"26px"}>
+        <AvatarGroup max={3}>
+          <Avatar />
+          <Avatar/> 
+          <Avatar/>
+          <Avatar/>
+        </AvatarGroup>
+        </Box>
         <Box sx={{ display: "flex", alignItems: "center", marginTop: "30px" }}>
           <Typography
             variant="body1"
@@ -71,12 +88,19 @@ const SingleBlogPage = () => {
         </Box>
       </Box>
       <Box marginTop={"40px"} sx={{display: "flex", flexDirection: "row", alignItems: "center", gap: 2}}>
+        <Box sx={{display: "flex", flexDirection: "row", alignItems: "center", gap: 2}}>
         <Avatar></Avatar>
         <Typography
           sx={{ fontSize: "20px"}}
         >
           Rishav Kumar Gurung
         </Typography>
+        </Box>
+        <Box>
+          <Typography sx={{fontSize: "14px"}}>
+          12/12/2024
+          </Typography>
+        </Box>
       </Box>
       <Box marginTop={"30px"}>
         <Typography
