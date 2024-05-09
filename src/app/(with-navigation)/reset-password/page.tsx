@@ -1,7 +1,7 @@
-import { Margin, Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, Button, Container, IconButton, InputAdornment, Paper, TextField, Typography } from "@mui/material";
+import { Container, Box, Paper, Typography, TextField, Button } from '@mui/material'
+import React from 'react'
 
-const ForgotPasswordPage = () => {
+const resetPasswordPage = () => {
   return (
     <Container
       sx={{
@@ -40,7 +40,7 @@ const ForgotPasswordPage = () => {
             }}
           >
             <Typography variant="h4" sx={{ mb: 2 }}>
-              Verify E-mail
+              Reset Password
             </Typography>
           </Box>
           <TextField
@@ -48,7 +48,8 @@ const ForgotPasswordPage = () => {
             required
             fullWidth
             variant="standard"
-            label="Email"
+            label="Password"
+            type="password"
           />
           <Button
             type="submit"
@@ -61,12 +62,12 @@ const ForgotPasswordPage = () => {
               "&:hover": { backgroundColor: "#303030" },
             }}
           >
-            Veirfy
+            Reset
           </Button>
         </Paper>
       </Box>
     </Container>
-  );
-};
+  )
+}
 
-export default ForgotPasswordPage;
+export default resetPasswordPage;
