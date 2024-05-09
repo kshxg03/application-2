@@ -1,7 +1,39 @@
+"use client"
+import React, { useState } from "react";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
-import React from "react";
+import { BASE_URL } from "@/app/common/constant/constant";
 
-const addUsersPage = () => {
+const AddUsersPage = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleAddUser = async () => {
+    try {
+      const response = await fetch(
+        `${BASE_URL}/api/admin/admin/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            userName: username,
+            password: password,
+          }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to add user");
+      }
+      console.log("User added successfully");
+      setUsername("");
+      setPassword("");
+    } catch (error) {
+      console.error("Error adding user:", error);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -40,6 +72,8 @@ const addUsersPage = () => {
           fullWidth
           variant="standard"
           label="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <TextField
           margin="normal"
@@ -47,9 +81,13 @@ const addUsersPage = () => {
           fullWidth
           variant="standard"
           label="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <Button
-          type="submit"
+          type="button"
+          onClick={handleAddUser}
           disableElevation
           fullWidth
           variant="contained"
@@ -67,4 +105,4 @@ const addUsersPage = () => {
   );
 };
 
-export default addUsersPage;
+export default AddUsersPage;
